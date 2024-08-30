@@ -7,31 +7,46 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Favorites',
+            name="Favorites",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('rank', models.IntegerField()),
-                ('comments', models.CharField(max_length=250)),
-                ('link', models.CharField(max_length=100)),
-                ('category', models.CharField(max_length=50)),
-                ('added_by_suggestion', models.BooleanField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("rank", models.IntegerField()),
+                ("comments", models.CharField(max_length=250)),
+                ("link", models.CharField(max_length=100)),
+                ("category", models.CharField(max_length=50)),
+                ("added_by_suggestion", models.BooleanField()),
             ],
         ),
         migrations.CreateModel(
-            name='Suggestions',
+            name="Suggestions",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('comments', models.CharField(max_length=250)),
-                ('link', models.CharField(max_length=100)),
-                ('category', models.CharField(max_length=50)),
-                ('suggester', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("comments", models.CharField(max_length=250)),
+                ("link", models.CharField(max_length=100)),
+                ("category", models.CharField(max_length=50)),
+                ("suggester", models.CharField(max_length=100)),
             ],
         ),
     ]

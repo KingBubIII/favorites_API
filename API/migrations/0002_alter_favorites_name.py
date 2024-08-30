@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('API', '0001_initial'),
+        ("API", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='favorites',
-            name='name',
+            model_name="favorites",
+            name="name",
             field=models.CharField(max_length=250),
         ),
     ]
