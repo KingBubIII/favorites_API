@@ -115,3 +115,27 @@ def random_favorite_in_category(request, category):
         )[0]
 
         return JsonResponse(random_obj)
+
+
+def search_favorites(request, str_match):
+    if request.method == "GET":
+        # searches database name column
+        results = get_list_or_404(
+            Favorites.objects.filter(name__icontains=str_match).values(
+                "id", "name", "rank", "comments", "link", "added_by_suggestion"
+            )
+        )
+
+        return JsonResponse(results, safe=False)
+
+
+def search_favorites_in_category(request, str_match, category):
+    if request.method == "GET":
+        # filters to category first then searches database name column
+        results = get_list_or_404(
+            Favorites.objects.filter(category__iexact=category)
+            .filter(name__icontains=str_match)
+            .values("id", "name", "rank", "comments", "link", "added_by_suggestion")
+        )
+
+        return JsonResponse(results, safe=False)

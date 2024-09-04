@@ -9,4 +9,6 @@ urlpatterns = [
     path("latest/<str:category>/", views.latest_by_category),
     path("random/", views.random_favorite),
     path("random/<str:category>/", views.random_favorite_in_category),
+    path("search/<str:str_match>/", views.search_favorites),
+    path("search/<str:str_match>/<str:category>/", views.search_favorites_in_category),
 ]
