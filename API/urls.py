@@ -7,4 +7,6 @@ urlpatterns = [
     path("top/<int:amount>/<str:category>/", views.top_in_category),
     path("latest/", views.latest),
     path("latest/<str:category>/", views.latest_by_category),
+    path("random/", views.random_favorite),
+    path("random/<str:category>/", views.random_favorite_in_category),
 ]

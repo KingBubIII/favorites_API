@@ -3,6 +3,7 @@ from .models import Favorites
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from django.db.models import Subquery
+from random import choice
 
 
 # Gets top X rated items in a category. Category and X defined by user in url
@@ -68,3 +69,35 @@ def latest_by_category(request, category):
     )
 
     return JsonResponse(most_recent_favorites, safe=False)
+
+
+def random_favorite(request):
+    # gets all ids from favorites table without loading other fields
+    pks = Favorites.objects.values_list("pk", flat=True)
+    # picks a random id
+    random_pk = choice(pks)
+    # filters to only the chosen id and puts in a list to get values easier
+    random_obj = get_list_or_404(
+        Favorites.objects.filter(pk=random_pk).values(
+            "id", "name", "rank", "comments", "link", "added_by_suggestion"
+        )
+    )[0]
+
+    return JsonResponse(random_obj)
+
+
+def random_favorite_in_category(request, category):
+    # gets all ids from category without loading other fields
+    pks = Favorites.objects.filter(category__iexact=category).values_list(
+        "pk", flat=True
+    )
+    # picks a random id
+    random_pk = choice(pks)
+    # filters to only the chosen id and puts in a list to get values easier
+    random_obj = get_list_or_404(
+        Favorites.objects.filter(pk=random_pk).values(
+            "id", "name", "rank", "comments", "link", "added_by_suggestion"
+        )
+    )[0]
+
+    return JsonResponse(random_obj)
