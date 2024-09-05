@@ -1,9 +1,9 @@
 from django.db import models
 
 
-class Suggestions(models.Model):
+class Recommendations(models.Model):
     class Meta:
-        db_table = "suggestions"
+        db_table = "recommendations"
 
     name = models.CharField(max_length=100)
     comments = models.CharField(max_length=250, blank=True, null=True)
