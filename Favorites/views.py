@@ -6,6 +6,14 @@ from django.db.models import Subquery
 from random import choice
 
 
+# this is for the values method instead of hard-coding each attribute I need usually
+def _std_attributes(category=True):
+    attributes = ["id", "name", "rank", "comments", "link", "added_by_suggestion"]
+    if category:
+        attributes.append("category")
+    
+    return attributes
+
 # Gets top X rated items in a category. Category and X defined by user in url
 # Returns list in JSON format
 def top_in_category(request, amount, category):
@@ -15,7 +23,7 @@ def top_in_category(request, amount, category):
             Favorites.objects.filter(category__iexact=category)
             .filter(rank__lte=amount)
             .order_by("rank")
-            .values("id", "name", "rank", "comments", "link", "added_by_suggestion")
+            .values(*_std_attributes(False))
         )
 
         return JsonResponse(top_favorites, safe=False)
@@ -39,7 +47,7 @@ def top_all(request, amount):
                 Favorites.objects.filter(category__iexact=curr_category)
                 .filter(rank__lte=amount)
                 .order_by("rank")
-                .values("id", "name", "rank", "comments", "link", "added_by_suggestion")
+                .values(*_std_attributes())
             )
 
         return JsonResponse(top_favorites)
@@ -54,15 +62,7 @@ def latest(request):
         most_recent_favorites = get_list_or_404(
             Favorites.objects.filter(
                 date_added__exact=Subquery(subquery_timestamp)
-            ).values(
-                "id",
-                "name",
-                "rank",
-                "comments",
-                "link",
-                "added_by_suggestion",
-                "category",
-            )
+            ).values(*_std_attributes())
         )
 
         return JsonResponse(most_recent_favorites, safe=False)
@@ -77,7 +77,7 @@ def latest_by_category(request, category):
         most_recent_favorites = get_list_or_404(
             Favorites.objects.filter(category__iexact=category)
             .filter(date_added__exact=Subquery(subquery_timestamp))
-            .values("id", "name", "rank", "comments", "link", "added_by_suggestion")
+            .values(*_std_attributes(False))
         )
 
         return JsonResponse(most_recent_favorites, safe=False)
@@ -91,9 +91,7 @@ def random_favorite(request):
         random_pk = choice(pks)
         # filters to only the chosen id and puts in a list to get values easier
         random_obj = get_list_or_404(
-            Favorites.objects.filter(pk=random_pk).values(
-                "id", "name", "rank", "comments", "link", "added_by_suggestion"
-            )
+            Favorites.objects.filter(pk=random_pk).values(*_std_attributes())
         )[0]
 
         return JsonResponse(random_obj)
@@ -109,9 +107,7 @@ def random_favorite_in_category(request, category):
         random_pk = choice(pks)
         # filters to only the chosen id and puts in a list to get values easier
         random_obj = get_list_or_404(
-            Favorites.objects.filter(pk=random_pk).values(
-                "id", "name", "rank", "comments", "link", "added_by_suggestion"
-            )
+            Favorites.objects.filter(pk=random_pk).values(*_std_attributes(False))
         )[0]
 
         return JsonResponse(random_obj)
@@ -121,9 +117,7 @@ def search_favorites(request, str_match):
     if request.method == "GET":
         # searches database name column
         results = get_list_or_404(
-            Favorites.objects.filter(name__icontains=str_match).values(
-                "id", "name", "rank", "comments", "link", "added_by_suggestion"
-            )
+            Favorites.objects.filter(name__icontains=str_match).values(*_std_attributes())
         )
 
         return JsonResponse(results, safe=False)
@@ -135,7 +129,7 @@ def search_favorites_in_category(request, str_match, category):
         results = get_list_or_404(
             Favorites.objects.filter(category__iexact=category)
             .filter(name__icontains=str_match)
-            .values("id", "name", "rank", "comments", "link", "added_by_suggestion")
+            .values(*_std_attributes(False))
         )
 
         return JsonResponse(results, safe=False)
