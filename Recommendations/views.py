@@ -133,7 +133,9 @@ def search_recommendation(request, str_match):
     if request.method == "GET":
         # searches database name column
         results = get_list_or_404(
-            Recommendations.objects.filter(name__icontains=str_match).values(*_std_attributes())
+            Recommendations.objects.filter(name__icontains=str_match).values(
+                *_std_attributes()
+            )
         )
 
         return Response(results)

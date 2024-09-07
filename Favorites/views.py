@@ -24,7 +24,6 @@ def _std_attributes(category=True):
     return attributes
 
 
-
 @api_view(["GET"])
 def top_in_category(request, amount, category):
     """
@@ -104,6 +103,7 @@ def latest(request):
 
         return Response(most_recent_favorites)
 
+
 @api_view(["GET"])
 def latest_by_category(request, category):
     """
@@ -128,6 +128,7 @@ def latest_by_category(request, category):
 
         return Response(most_recent_favorites)
 
+
 @api_view(["GET"])
 def random_favorite(request):
     """
@@ -147,6 +148,7 @@ def random_favorite(request):
         )[0]
 
         return Response(random_obj)
+
 
 @api_view(["GET"])
 def random_favorite_in_category(request, category):
@@ -173,6 +175,7 @@ def random_favorite_in_category(request, category):
 
         return Response(random_obj)
 
+
 @api_view(["GET"])
 def search_favorites(request, str_match):
     """
@@ -187,10 +190,13 @@ def search_favorites(request, str_match):
     if request.method == "GET":
         # searches database name column
         results = get_list_or_404(
-            Favorites.objects.filter(name__icontains=str_match).values(*_std_attributes())
+            Favorites.objects.filter(name__icontains=str_match).values(
+                *_std_attributes()
+            )
         )
 
         return Response(results)
+
 
 @api_view(["GET"])
 def search_favorites_in_category(request, str_match, category):
