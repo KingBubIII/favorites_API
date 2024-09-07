@@ -12,19 +12,18 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent
 
+ENV = environ.Env()
+ENV.read_env()
+
+SECRET_KEY = ENV("SECRET_KEY")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-xcp=#zhq)k!qy!^@492-k2nsgyasy2nn^ed30d&82uazw0@=fj"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = ["api.calebrichardson.dev"]
 
@@ -131,3 +130,11 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+if ENV("APP_ENV") == "development":
+    print("dev")
+    DEBUG = True
+
+if ENV("APP_ENV") == "production":
+    print("prod")
+    DEBUG = False
