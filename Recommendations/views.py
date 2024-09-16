@@ -26,29 +26,7 @@ def _std_attributes(category=True):
 
 
 @api_view(["GET"])
-def latest(request):
-    """
-    Gets the last added items to recommendations database, gets multiple items since the time is only specific to a day
-
-    Return: List_Recommendations[Attributes_Dictionary]
-    """
-
-    if request.method == "GET":
-        subquery_timestamp = Recommendations.objects.order_by("-date_added").values(
-            "date_added"
-        )[:1]
-
-        most_recent_recommendations = get_list_or_404(
-            Recommendations.objects.filter(
-                date_added__exact=Subquery(subquery_timestamp)
-            ).values(*_std_attributes())
-        )
-
-        return Response(most_recent_recommendations)
-
-
-@api_view(["GET"])
-def latest_by_category(request, category):
+def latest(request, category=None):
     """
     Gets the last added items to recommendations database in a specific category, gets multiple items since the time is only specific to a day
 
@@ -63,8 +41,13 @@ def latest_by_category(request, category):
             "date_added"
         )[:1]
 
-        most_recent_recommendations = get_list_or_404(
-            Recommendations.objects.filter(category__iexact=category)
+        # filters down to category if user specified one
+        if category is None:
+            most_recent_recommendations = Recommendations.objects.all()
+        else:
+            most_recent_recommendations = Recommendations.objects.filter(category__iexact=category)
+
+        most_recent_recommendations = get_list_or_404(most_recent_recommendations
             .filter(date_added__exact=Subquery(subquery_timestamp))
             .values(*_std_attributes(False))
         )
@@ -73,30 +56,9 @@ def latest_by_category(request, category):
 
 
 @api_view(["GET"])
-def random_recommendation(request):
+def random(request, category=None):
     """
-    Gets a random favorite from database
-
-    Return: Attributes_Dictionary
-    """
-
-    if request.method == "GET":
-        # gets all ids from Recommendations table without loading other fields
-        pks = Recommendations.objects.values_list("pk", flat=True)
-        # picks a random id
-        random_pk = choice(pks)
-        # filters to only the chosen id and puts in a list to get values easier
-        random_obj = get_list_or_404(
-            Recommendations.objects.filter(pk=random_pk).values(*_std_attributes())
-        )[0]
-
-        return Response(random_obj)
-
-
-@api_view(["GET"])
-def random_recommendation_from_category(request, category):
-    """
-    Gets a random favorite in a certain category from database
+    Gets a random recommendation in a certain category from database
 
     Keyword arguments:
     category:str -- category matching any category in database
@@ -106,9 +68,14 @@ def random_recommendation_from_category(request, category):
 
     if request.method == "GET":
         # gets all ids from category without loading other fields
-        pks = Recommendations.objects.filter(category__iexact=category).values_list(
-            "pk", flat=True
-        )
+        if category is None:
+            pks = Recommendations.objects.values_list("pk", flat=True)
+        else:
+            pks = Recommendations.objects.filter(category__iexact=category)
+
+        # get all ids in a list to choose from
+        pks = pks.values_list("pk", flat=True)
+
         # picks a random id
         random_pk = choice(pks)
         # filters to only the chosen id and puts in a list to get values easier
@@ -120,43 +87,26 @@ def random_recommendation_from_category(request, category):
 
 
 @api_view(["GET"])
-def search_recommendation(request, str_match):
+def search(request, str_match, category=None):
     """
-    Searches database name column for favorite names containing user search
-
-    Keyword arguments:
-    str_match:str -- user specified string, effectively `LIKE "%string%"` in SQL
-
-    Return: List_Recommendations[Attributes_Dictionary]
-    """
-
-    if request.method == "GET":
-        # searches database name column
-        results = get_list_or_404(
-            Recommendations.objects.filter(name__icontains=str_match).values(
-                *_std_attributes()
-            )
-        )
-
-        return Response(results)
-
-
-@api_view(["GET"])
-def search_recommendation_in_category(request, str_match, category):
-    """
-    Searches database name column in matching categories for favorite names containing user search
+    Searches database name column in matching categories for recommendation names containing user search
 
     Keyword arguments:
     str_match:str -- user specified string, effectively `LIKE "%string%"` in SQL
     category:str -- category matching any categories in database
 
-    Return: List_Recommendations[Attributes_Dictionary]
+    Return: List_Recommendation[Attributes_Dictionary]
     """
 
     if request.method == "GET":
-        # filters to category first then searches database name column
-        results = get_list_or_404(
-            Recommendations.objects.filter(category__iexact=category)
+        # filters down by category if user specified one
+        if category is None:
+            results = Recommendations.objects.all()
+        else:
+            results = Recommendations.objects.filter(category__iexact=category)
+
+        # searches database by name column for user's search
+        results = get_list_or_404(results
             .filter(name__icontains=str_match)
             .values(*_std_attributes(False))
         )
