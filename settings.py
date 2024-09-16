@@ -22,10 +22,7 @@ ENV.read_env()
 
 SECRET_KEY = ENV("SECRET_KEY")
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-ALLOWED_HOSTS = ["api.calebrichardson.dev", "127.0.0.1"]
+ALLOWED_HOSTS = ["docs.calebrichardson.dev", "api.calebrichardson.dev", "127.0.0.1"]
 
 
 # Application definition
@@ -39,7 +36,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_swagger",
-    'drf_spectacular',
+    "drf_spectacular",
     "Favorites",
     "Recommendations",
 ]
@@ -135,15 +132,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     # YOUR SETTINGS
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'TODO List API',
-    'DESCRIPTION': 'API documentation for our app',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
-    'COMPONENT_SPLIT_REQUEST': True
+    "TITLE": "TODO List API",
+    "DESCRIPTION": "API documentation for our app",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "COMPONENT_SPLIT_REQUEST": True,
     # OTHER SETTINGS
 }
 
