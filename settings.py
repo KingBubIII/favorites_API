@@ -22,7 +22,7 @@ ENV.read_env()
 
 SECRET_KEY = ENV("SECRET_KEY")
 
-ALLOWED_HOSTS = ["docs.calebrichardson.dev", "api.calebrichardson.dev", "127.0.0.1"]
+ALLOWED_HOSTS = ["api.calebrichardson.dev", "docs.calebrichardson.dev", "127.0.0.1", "api.localhost", "docs.localhost"]
 
 
 # Application definition
@@ -35,12 +35,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    'django_hosts',
     "Favorites",
     "Recommendations",
     "Docs",
 ]
 
 MIDDLEWARE = [
+    'django_hosts.middleware.HostsRequestMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -48,9 +50,12 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
-ROOT_URLCONF = "urls"
+ROOT_URLCONF = "api_urls"
+ROOT_HOSTCONF = "hosts"
+DEFAULT_HOST = "api"
 
 TEMPLATES = [
     {
