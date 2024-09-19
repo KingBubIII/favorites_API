@@ -35,10 +35,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "rest_framework_swagger",
-    "drf_spectacular",
     "Favorites",
     "Recommendations",
+    "Docs",
 ]
 
 MIDDLEWARE = [
@@ -56,7 +55,7 @@ ROOT_URLCONF = "urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "Docs", "templates"),],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -143,6 +142,8 @@ SPECTACULAR_SETTINGS = {
     "COMPONENT_SPLIT_REQUEST": True,
     # OTHER SETTINGS
 }
+
+URL_INFO_PATH = os.path.join(BASE_DIR, "Docs", "static", "JSON", "url_info.json")
 
 if ENV("APP_ENV") == "development":
     print("dev")

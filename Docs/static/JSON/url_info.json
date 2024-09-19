@@ -1,0 +1,302 @@
+{
+  "url_info":{
+    "/favorites/latest/{category}": {
+      "description": "Gets the last favorites added, can get multiple if they were added on the same day",
+      "examples": ["-favorites-latest-series", "-favorites-latest-series"],
+      "URL Parameters": [
+        {
+          "name": "category",
+          "required": false,
+          "description": "Filters down the result to just the specified category. Get available categories with `GET /categories`"
+        }
+      ],
+      "Data Parameters": []
+    },
+    "/favorites/random/{category}": {
+      "description": "Gets a random favorite",
+      "examples": ["-favorites-random-", "-favorites-random-series"],
+      "URL Parameters": [
+        {
+          "name": "category",
+          "required": false,
+          "description": "Filters down the result to just the specified category. Get available categories with `GET /categories`"
+        }
+      ]
+    },
+    "/favorites/search/{str_match}/{category}": {
+      "description": "Searches favorites by name",
+      "examples": ["-favorites-search-fi", "-favorites-search-fi-series"],
+      "URL Parameters": [
+        {
+          "name": "str_match",
+          "required": true,
+          "description": "The string to be searched, effectively `LIKE \"%string%\"` in SQL"
+        },
+        {
+          "name": "category",
+          "required": false,
+          "description": "Filters down the result to just the specified category. Get available categories with `GET /categories`"
+        }
+      ]
+    },
+    "/favorites/top/{amount}/{category}": {
+      "description": "Gets favorites ranked in order from highest to lowest",
+      "examples": ["-favorites-top-3", "-favorites-top-3-series"],
+      "URL Parameters": [
+        {
+          "name": "amount",
+          "required": true,
+          "description": "The lowest rank you want to retrieve, like a top 10 or top 5"
+        },
+        {
+          "name": "category",
+          "required": false,
+          "description": "Filters down the result to just the specified category. Get available categories with `GET /categories`"
+        }
+      ]
+    },
+    "/recommendations/latest/{category}": {
+      "description": "Gets the last recommendations added, can get multiple if they were added on the same day",
+      "examples": ["-recommendations-latest-", "-recommendations-latest-series"],
+      "URL Parameters": [
+        {
+          "name": "category",
+          "required": false,
+          "description": "Filters down the result to just the specified category. Get available categories with `GET /categories`"
+        }
+      ]
+    },
+    "/recommendations/random/{category}": {
+      "description": "Gets a random recommendation",
+      "examples": ["-recommendations-random-", "-recommendations-random-series"],
+      "URL Parameters": [
+        {
+          "name": "category",
+          "required": false,
+          "description": "Filters down the result to just the specified category. Get available categories with `GET /categories`"
+        }
+      ]
+    },
+    "/recommendations/search/{str_match}/{category}": {
+      "description": "Searches recommendations by name",
+      "examples": ["-recommendations-search-fi", "-recommendations-search-fi-series"],
+      "URL Parameters": [
+        {
+          "name": "str_match",
+          "required": true,
+          "description": "The string to be searched, effectively `LIKE \"%string%\"` in SQL"
+        },
+        {
+          "name": "category",
+          "required": false,
+          "description": "Filters down the result to just the specified category. Get available categories with `GET /categories`"
+        }
+      ]
+    },
+    "/suggest/": {
+      "description": "This is how to add to the recommendations. Requires a JSON with data about recommendation",
+      "examples": [
+        {
+          "url": "asdf",
+          "method": "GET",
+          "responses": {
+            "200": {},
+            "400": {}
+          }
+        }
+      ],
+      "URL Parameters": [],
+      "Data Parameters": [
+        {
+          "type": "JSON",
+          "required": true,
+          "description": "JSON requires at least a `name` and `cateogry` key. Optional keys include: `comments`, `link`, and or `suggester`"
+        }
+      ]
+    }
+  },
+  "examples":{
+    "-favorites-latest-":{
+      "actual_url":"/favorites/latest/",
+      "method": "GET",
+      "responses": {
+        "200": [
+          {
+            "id": 1,
+            "name": "Breaking Bad",
+            "rank": 1,
+            "comments": "I wish I watched this show at it's peak to get in on the hype.",
+            "link": "https://www.imdb.com/title/tt0903747/",
+            "added_by_suggestion": false
+          },
+          {
+            "id": 2,
+            "name": "The Office",
+            "rank": 3,
+            "comments": "I've rewatched this whole show probably too many times, never gets old.",
+            "link": "https://www.imdb.com/title/tt0386676/",
+            "added_by_suggestion": false
+          }
+        ],
+        "400": {}
+      }
+    },
+    "-favorites-latest-series":{
+      "actual_url":"/favorites/latest/series",
+      "method": "GET",
+      "responses": {
+        "200": [
+          {
+            "id": 1,
+            "name": "Breaking Bad",
+            "rank": 1,
+            "comments": "I wish I watched this show at it's peak to get in on the hype.",
+            "link": "https://www.imdb.com/title/tt0903747/",
+            "added_by_suggestion": false
+          },
+          {
+            "id": 2,
+            "name": "The Office",
+            "rank": 3,
+            "comments": "I've rewatched this whole show probably too many times, never gets old.",
+            "link": "https://www.imdb.com/title/tt0386676/",
+            "added_by_suggestion": false
+          },
+          {
+            "id": 6,
+            "name": "Better Call Saul",
+            "rank": 2,
+            "comments": "Started this to get more Breaking Bad but it's different in a really good way.",
+            "link": "https://www.imdb.com/title/tt3032476/",
+            "added_by_suggestion": false
+          }
+        ],
+        "400": {}
+      }
+    },
+    "-favorites-random-":{
+      "actual_url": "/favorites/random/",
+      "method": "GET",
+      "responses": {
+        "200": {
+          "id": 2,
+          "name": "The Office",
+          "rank": 3,
+          "comments": "I've rewatched this whole show probably too many times, never gets old.",
+          "link": "https://www.imdb.com/title/tt0386676/",
+          "added_by_suggestion": false
+        },
+        "400": {}
+      }
+    },
+    "-favorites-random-series":{
+      "url": "/favorites/random/series",
+      "method": "GET",
+      "responses": {
+        "200": {
+          "id": 6,
+          "name": "Better Call Saul",
+          "rank": 2,
+          "comments": "Started this to get more Breaking Bad but it's different in a really good way.",
+          "link": "https://www.imdb.com/title/tt3032476/",
+          "added_by_suggestion": false
+        },
+        "400": {}
+      }
+    },
+    "-favorites-search-fi":{
+      "actual_url": "/favorites/search/fi",
+      "method": "GET",
+      "responses": {
+        "200": {},
+        "400": {}
+      }
+    },
+    "-favorites-search-fi-series":{
+      "actual_url": "/favorites/search/fi/series",
+      "method": "GET",
+      "responses": {
+        "200": {},
+        "400": {}
+      }
+    },
+    "-favorites-top-3":{
+      "actual_url": "/favorites/top/3",
+      "method": "GET",
+      "responses": {
+        "200": {},
+        "400": {}
+      }
+    },
+    "-favorites-top-3-series":{
+      "actual_url": "/favorites/top/3/series",
+      "method": "GET",
+      "responses": {
+        "200": {},
+        "400": {}
+      }
+    },
+    "-recommendations-latest-":{
+      "actual_url":"/recommendations/latest/",
+      "method": "GET",
+      "responses": {
+        "200": {},
+        "400": {}
+      }
+    },
+    "-recommendations-latest-series":{
+      "actual_url":"/recommendations/latest/series",
+      "method": "GET",
+      "responses": {
+        "200": {},
+        "400": {}
+      }
+    },
+    "-recommendations-random-":{
+      "actual_url": "/recommendations/random/",
+      "method": "GET",
+      "responses": {
+        "200": {
+          "id": 2,
+          "name": "The Office",
+          "rank": 3,
+          "comments": "I've rewatched this whole show probably too many times, never gets old.",
+          "link": "https://www.imdb.com/title/tt0386676/",
+          "added_by_suggestion": false
+        },
+        "400": {}
+      }
+    },
+    "-recommendations-random-series":{
+      "url": "/recommendations/random/series",
+      "method": "GET",
+      "responses": {
+        "200": {
+          "id": 6,
+          "name": "Better Call Saul",
+          "rank": 2,
+          "comments": "Started this to get more Breaking Bad but it's different in a really good way.",
+          "link": "https://www.imdb.com/title/tt3032476/",
+          "added_by_suggestion": false
+        },
+        "400": {}
+      }
+    },
+    "-recommendations-search-fi":{
+      "actual_url": "/recommendations/search/fi",
+      "method": "GET",
+      "responses": {
+        "200": {},
+        "400": {}
+      }
+    },
+    "-recommendations-search-fi-series":{
+      "actual_url": "/recommendations/search/fi/series",
+      "method": "GET",
+      "responses": {
+        "200": {},
+        "400": {}
+      }
+    }
+  }
+}
