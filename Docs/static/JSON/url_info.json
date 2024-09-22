@@ -2,20 +2,20 @@
   "url_info":{
     "/favorites/latest/{category}": {
       "description": "Gets the last favorites added, can get multiple if they were added on the same day",
-      "examples": ["-favorites-latest-series", "-favorites-latest-series"],
-      "URL Parameters": [
+      "examples": ["-favorites-latest-series", "-favorites-latest-"],
+      "url_parameters": [
         {
           "name": "category",
           "required": false,
           "description": "Filters down the result to just the specified category. Get available categories with `GET /categories`"
         }
       ],
-      "Data Parameters": []
+      "data_parameters": []
     },
     "/favorites/random/{category}": {
       "description": "Gets a random favorite",
       "examples": ["-favorites-random-", "-favorites-random-series"],
-      "URL Parameters": [
+      "url_parameters": [
         {
           "name": "category",
           "required": false,
@@ -26,7 +26,7 @@
     "/favorites/search/{str_match}/{category}": {
       "description": "Searches favorites by name",
       "examples": ["-favorites-search-fi", "-favorites-search-fi-series"],
-      "URL Parameters": [
+      "url_parameters": [
         {
           "name": "str_match",
           "required": true,
@@ -42,7 +42,7 @@
     "/favorites/top/{amount}/{category}": {
       "description": "Gets favorites ranked in order from highest to lowest",
       "examples": ["-favorites-top-3", "-favorites-top-3-series"],
-      "URL Parameters": [
+      "url_parameters": [
         {
           "name": "amount",
           "required": true,
@@ -58,7 +58,7 @@
     "/recommendations/latest/{category}": {
       "description": "Gets the last recommendations added, can get multiple if they were added on the same day",
       "examples": ["-recommendations-latest-", "-recommendations-latest-series"],
-      "URL Parameters": [
+      "url_parameters": [
         {
           "name": "category",
           "required": false,
@@ -69,7 +69,7 @@
     "/recommendations/random/{category}": {
       "description": "Gets a random recommendation",
       "examples": ["-recommendations-random-", "-recommendations-random-series"],
-      "URL Parameters": [
+      "url_parameters": [
         {
           "name": "category",
           "required": false,
@@ -80,7 +80,7 @@
     "/recommendations/search/{str_match}/{category}": {
       "description": "Searches recommendations by name",
       "examples": ["-recommendations-search-fi", "-recommendations-search-fi-series"],
-      "URL Parameters": [
+      "url_parameters": [
         {
           "name": "str_match",
           "required": true,
@@ -105,8 +105,8 @@
           }
         }
       ],
-      "URL Parameters": [],
-      "Data Parameters": [
+      "url_parameters": [],
+      "data_parameters": [
         {
           "type": "JSON",
           "required": true,
@@ -145,32 +145,7 @@
       "actual_url":"/favorites/latest/series",
       "method": "GET",
       "responses": {
-        "200": [
-          {
-            "id": 1,
-            "name": "Breaking Bad",
-            "rank": 1,
-            "comments": "I wish I watched this show at it's peak to get in on the hype.",
-            "link": "https://www.imdb.com/title/tt0903747/",
-            "added_by_suggestion": false
-          },
-          {
-            "id": 2,
-            "name": "The Office",
-            "rank": 3,
-            "comments": "I've rewatched this whole show probably too many times, never gets old.",
-            "link": "https://www.imdb.com/title/tt0386676/",
-            "added_by_suggestion": false
-          },
-          {
-            "id": 6,
-            "name": "Better Call Saul",
-            "rank": 2,
-            "comments": "Started this to get more Breaking Bad but it's different in a really good way.",
-            "link": "https://www.imdb.com/title/tt3032476/",
-            "added_by_suggestion": false
-          }
-        ],
+        "200": {},
         "400": {}
       }
     },

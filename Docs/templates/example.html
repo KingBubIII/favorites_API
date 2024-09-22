@@ -1,8 +1,8 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
 
-<h3>{{ example.method }}</h3>
-<h3>{{ example.actual_url }}</h3>
+<h5 class="card-title"><code>{{ example.method }} <a href="https://api.calebrichardson.dev{{ example.actual_url }}?format=json">https://api.calebrichardson.dev{{ example.actual_url }}?format=json</a></code></h5>
+<br>
 {% for code, response in example.responses.items %}
 {{ code }}:
 <pre><code class="language-javascript">{{ response|pprint }}</code></pre>
