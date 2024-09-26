@@ -18,13 +18,13 @@ body {
 
 section h4 {
     text-align: center;
-    margin: 25px;
     position: sticky;
-    top: 25px;
+    top: 0px;
     background-color: #000000;
     padding: 10px;
     color: #ffffff;
     z-index: 2;
+
 }
 
 section p {
