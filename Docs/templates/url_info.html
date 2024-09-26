@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>API Docs</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -15,42 +15,53 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link rel="stylesheet" href=" {% static "CSS/main.css" %}">
 
-  {% for url, details in urls.items %}
-  <div class="card w-75 url-card">
-    <div class="card-header text-bg-dark">
-      <h5 class="card-title"><code>{{ url }}</code></h5>
-      <h6 class="card-subtitle">{{ details.description }}</h6>
-    </div>
-    <div class="card-body">
-      <div class="card">
-        <div class="card-header text-bg-secondary">URL Parameters:</div>
-
-        {% for parameter in details.url_parameters %}
-        <div class="card-body">
-          <h5 class="card-title"><b>{{ parameter.name }}</b>:</h5>
-          <h6 class="card-subtitle">{{ parameter.description }}</h6>
-          <p class="card-text">Required: {{ parameter.required }}</p>
-        </div>
-        {% endfor %}
+  <section class="introduction">
+    <h4>Introduction</h4>
+    <div class="card w-75">
+      <div class="card-body">
+        <p>This is the documentation for accessing all my favorites via my publicly available API. For each endpoint you will have the URL template, URL description, parameter details, and then examples you can run to get a similar result.</p>
+        <p>All the endpoints listed will use the domain <code>https://api.calebrichardson.dev/</code> and the suffix <code>?format=json</code>. By omitting the suffix you can access the default Django REST framework page for that specific endpoint where you can also find detailed information.</p>
       </div>
     </div>
-    <div class="card-body">
-      <div class="card">
-        <div class="card-header text-bg-secondary">
-          <nav aria-label="...">
-            <ul class="pagination pagination-sm"> Examples:
-              {% for example in details.examples %}
-              <li class="page-item"><a class="page-link" href="#" {% if forloop.first %} hx-trigger="load, click" {% endif %} hx-get="/examples/{{ example }}/" hx-target="#example{{ forloop.parentloop.counter0 }}" >{{ forloop.counter0 }}</a></li>
-              {% endfor %}
-            </ul>
-          </nav>
-        </div>
+  </section>
 
-        <div id="example{{ forloop.counter0 }}" class="card-body"></div>
+  <section class="endpionts">
+    <h4>Endpoints</h4>
+    {% for url, details in url_info.items %}
+    <div class="card w-75 url-card">
+      <div class="card-header text-bg-dark">
+        <h5 class="card-title"><code>{{ url }}</code></h5>
+        <h6 class="card-subtitle">{{ details.description }}</h6>
+      </div>
+      <div class="card-body">
+        <div class="card">
+          <div class="card-header text-bg-secondary">URL Parameters:</div>
+          {% for parameter in details.url_parameters %}
+          <div class="card-body">
+            <h5 class="card-title"><b>{{ parameter.name }}</b>:</h5>
+            <h6 class="card-subtitle">{{ parameter.description }}</h6>
+            <p class="card-text">Required: {{ parameter.required }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card">
+          <div class="card-header text-bg-secondary">
+            <nav aria-label="...">
+              <ul class="pagination pagination-sm"> Examples:
+                {% for example in details.examples %}
+                <li class="page-item"><a class="page-link" href="#" {% if forloop.first %} hx-trigger="load, click" {% endif %} hx-get="/examples/{{ example }}/" hx-target="#example{{ forloop.parentloop.counter0 }}" >{{ forloop.counter0 }}</a></li>
+                {% endfor %}
+              </ul>
+            </nav>
+          </div>
+          <div id="example{{ forloop.counter0 }}" class="card-body"></div>
+        </div>
       </div>
     </div>
-  </div>
-  {% endfor %}
+    {% endfor %}
+  </section>
 </body>
 </html>
 
