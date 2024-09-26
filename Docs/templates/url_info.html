@@ -33,6 +33,20 @@
         <h5 class="card-title"><code>{{ url }}</code></h5>
         <h6 class="card-subtitle">{{ details.description }}</h6>
       </div>
+
+      <div class="card-body">
+        <div class="card">
+          <div class="card-header text-bg-secondary">
+            Available Methods
+          </div>
+          <div class="card-body">
+            {% for method in details.methods %}
+            <span class="badge text-bg-success">{{ method }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
       <div class="card-body">
         <div class="card">
           <div class="card-header text-bg-secondary">URL Parameters:</div>
@@ -45,6 +59,7 @@
           {% endfor %}
         </div>
       </div>
+
       <div class="card-body">
         <div class="card">
           <div class="card-header text-bg-secondary">

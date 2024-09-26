@@ -10,7 +10,8 @@
           "description": "Filters down the result to just the specified category. Get available categories with `GET /categories`"
         }
       ],
-      "data_parameters": []
+      "data_parameters": [],
+      "methods":["GET"]
     },
     "/favorites/random/{category}": {
       "description": "Gets a random favorite",
@@ -21,7 +22,8 @@
           "required": false,
           "description": "Filters down the result to just the specified category. Get available categories with `GET /categories`"
         }
-      ]
+      ],
+      "methods":["GET"]
     },
     "/favorites/search/{str_match}/{category}": {
       "description": "Searches favorites by name",
@@ -37,7 +39,8 @@
           "required": false,
           "description": "Filters down the result to just the specified category. Get available categories with `GET /categories`"
         }
-      ]
+      ],
+      "methods":["GET"]
     },
     "/favorites/top/{amount}/{category}": {
       "description": "Gets favorites ranked in order from highest to lowest",
@@ -53,7 +56,8 @@
           "required": false,
           "description": "Filters down the result to just the specified category. Get available categories with `GET /categories`"
         }
-      ]
+      ],
+      "methods":["GET"]
     },
     "/recommendations/latest/{category}": {
       "description": "Gets the last recommendations added, can get multiple if they were added on the same day",
@@ -64,7 +68,8 @@
           "required": false,
           "description": "Filters down the result to just the specified category. Get available categories with `GET /categories`"
         }
-      ]
+      ],
+      "methods":["GET"]
     },
     "/recommendations/random/{category}": {
       "description": "Gets a random recommendation",
@@ -75,7 +80,8 @@
           "required": false,
           "description": "Filters down the result to just the specified category. Get available categories with `GET /categories`"
         }
-      ]
+      ],
+      "methods":["GET"]
     },
     "/recommendations/search/{str_match}/{category}": {
       "description": "Searches recommendations by name",
@@ -91,7 +97,8 @@
           "required": false,
           "description": "Filters down the result to just the specified category. Get available categories with `GET /categories`"
         }
-      ]
+      ],
+      "methods":["GET"]
     },
     "/suggest/": {
       "description": "This is how to add to the recommendations. Requires a JSON with data about recommendation",
@@ -112,7 +119,8 @@
           "required": true,
           "description": "JSON requires at least a `name` and `cateogry` key. Optional keys include: `comments`, `link`, and or `suggester`"
         }
-      ]
+      ],
+      "methods":["POST"]
     }
   },
   "examples":{
