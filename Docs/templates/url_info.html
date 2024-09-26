@@ -51,12 +51,12 @@
             <nav aria-label="...">
               <ul class="pagination pagination-sm"> Examples:
                 {% for example in details.examples %}
-                <li class="page-item"><a class="page-link" href="#" {% if forloop.first %} hx-trigger="load, click" {% endif %} hx-get="/examples/{{ example }}/" hx-target="#example{{ forloop.parentloop.counter0 }}" >{{ forloop.counter0 }}</a></li>
+                <li class="page-item"><a class="page-link" href="#" hx-get="/examples/{{ example }}/" hx-target="#example{{ forloop.parentloop.counter0 }}" >{{ forloop.counter0 }}</a></li>
                 {% endfor %}
               </ul>
             </nav>
           </div>
-          <div id="example{{ forloop.counter0 }}" class="card-body"></div>
+          <div id="example{{ forloop.counter0 }}" class="card-body">Examples will load here</div>
         </div>
       </div>
     </div>
