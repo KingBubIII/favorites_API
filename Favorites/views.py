@@ -46,8 +46,12 @@ def top(request, amount, category=None):
     """
 
     if request.method == "GET":
-        top_favorites = get_list_or_404(
-            Favorites.objects.filter(rank__lte=amount)
+        top_favorites = Favorites.objects.filter(rank__lte=amount)
+
+        if bool(category):
+            top_favorites = top_favorites.filter(category__iexact=category)
+
+        top_favorites = get_list_or_404(top_favorites
             .order_by("rank")
             .values(*_std_attributes(not bool(category)))
         )
