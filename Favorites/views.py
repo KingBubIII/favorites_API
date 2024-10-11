@@ -23,6 +23,16 @@ def _std_attributes(category=True):
 
     return attributes
 
+def _group_by_category(query_values: list):
+    all_matches_dict = {}
+    for match in query_values:
+        temp_category = match.pop("category")
+        try:
+            all_matches_dict[temp_category].append(match)
+        except KeyError as e:
+            all_matches_dict[temp_category] = [match]
+
+    return all_matches_dict
 
 @api_view(["GET"])
 def top(request, amount, category=None):
@@ -36,32 +46,16 @@ def top(request, amount, category=None):
     """
 
     if request.method == "GET":
-        if category is None:
-            # Gets all categories from database
-            all_categories = list(
-                Favorites.objects.values_list("category", flat=True).distinct()
-            )
-        else:
-            # uses only the user specified category
-            all_categories = [category]
+        top_favorites = get_list_or_404(
+            Favorites.objects.filter(rank__lte=amount)
+            .order_by("rank")
+            .values(*_std_attributes(not bool(category)))
+        )
 
-        # creates dictionary to be returned
-        top_favorites = {}
-        for curr_category in all_categories:
-            # Filters all favorite items based on rank and category
-            top_favorites[curr_category] = get_list_or_404(
-                Favorites.objects.filter(category__iexact=curr_category)
-                .filter(rank__lte=amount)
-                .order_by("rank")
-                .values(*_std_attributes())
-            )
+        if not bool(category):
+            top_favorites = _group_by_category(top_favorites)
 
-        # if user specifies a category return a list format
-        if len(all_categories) == 1:
-            return Response(top_favorites[category])
-        # if user doesn't specify a category then return a dict format with categories as keys
-        else:
-            return Response(top_favorites)
+        return Response(top_favorites)
 
 
 @api_view(["GET"])
@@ -88,8 +82,11 @@ def latest(request, category=None):
 
         most_recent_favorites = get_list_or_404(most_recent_favorites
             .filter(date_added__exact=Subquery(subquery_timestamp))
-            .values(*_std_attributes(False))
+            .values(*_std_attributes(not bool(category)))
         )
+
+        if not bool(category):
+            most_recent_favorites = _group_by_category(most_recent_favorites)
 
         return Response(most_recent_favorites)
 
@@ -147,7 +144,10 @@ def search(request, str_match, category=None):
         # searches database by name column for user's search
         results = get_list_or_404(results
             .filter(name__icontains=str_match)
-            .values(*_std_attributes(False))
+            .values(*_std_attributes(not bool(category)))
         )
+
+        if not bool(category):
+            results = _group_by_category(results)
 
         return Response(results)

@@ -24,6 +24,17 @@ def _std_attributes(category=True):
 
     return attributes
 
+def _group_by_category(query_values: list):
+    all_matches_dict = {}
+    for match in query_values:
+        temp_category = match.pop("category")
+        try:
+            all_matches_dict[temp_category].append(match)
+        except KeyError as e:
+            all_matches_dict[temp_category] = [match]
+
+    return all_matches_dict
+
 
 @api_view(["GET"])
 def latest(request, category=None):
@@ -49,8 +60,11 @@ def latest(request, category=None):
 
         most_recent_recommendations = get_list_or_404(most_recent_recommendations
             .filter(date_added__exact=Subquery(subquery_timestamp))
-            .values(*_std_attributes(False))
+            .values(*_std_attributes(not bool(category)))
         )
+
+        if not bool(category):
+            most_recent_recommendations = _group_by_category(most_recent_recommendations)
 
         return Response(most_recent_recommendations)
 
@@ -108,7 +122,10 @@ def search(request, str_match, category=None):
         # searches database by name column for user's search
         results = get_list_or_404(results
             .filter(name__icontains=str_match)
-            .values(*_std_attributes(False))
+            .values(*_std_attributes(not bool(category)))
         )
+
+        if not bool(category):
+            results = _group_by_category(results)
 
         return Response(results)
