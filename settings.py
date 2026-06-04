@@ -67,6 +67,15 @@ CORS_ALLOW_METHODS = (
     "OPTIONS",
 )
 
+CORS_ALLOW_HEADERS = [
+    *default_headers,
+    # HTMX headers (THIS IS THE FIX)
+    "hx-request",
+    "hx-current-url",
+    "hx-target",
+    "hx-trigger",
+]
+
 CORS_ALLOW_CREDENTIALS: True
 
 ROOT_URLCONF = "api_urls"
