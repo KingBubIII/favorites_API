@@ -64,6 +64,7 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_METHODS = (
     "GET",
+    "OPTIONS",
 )
 
 ROOT_URLCONF = "api_urls"
