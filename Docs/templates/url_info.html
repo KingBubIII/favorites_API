@@ -16,6 +16,30 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link rel="stylesheet" href=" {% static "CSS/main.css" %}">
 
+  <script>
+  document.body.addEventListener("htmx:afterSwap", function (event) {
+
+    // Only target our result container
+    if (event.target.id !== "json-resp") return;
+
+    try {
+      // Django JsonResponse arrives as text
+      const raw = event.target.textContent.trim();
+
+      const data = JSON.parse(raw);
+
+      event.target.innerHTML = `${JSON.stringify(data, null, 2)}`;
+
+    } catch (err) {
+      console.error("Failed to parse JSON:", err);
+
+      event.target.innerHTML = `
+        <pre class="json">Invalid JSON response</pre>
+      `;
+    }
+  });
+  </script>
+
   <section class="introduction">
     <h4>Introduction</h4>
     <div class="card w-75">
