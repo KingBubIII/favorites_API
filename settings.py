@@ -67,6 +67,8 @@ CORS_ALLOW_METHODS = (
     "OPTIONS",
 )
 
+CORS_ALLOW_CREDENTIALS: True
+
 ROOT_URLCONF = "api_urls"
 ROOT_HOSTCONF = "hosts"
 DEFAULT_HOST = "api"
