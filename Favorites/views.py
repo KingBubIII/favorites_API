@@ -74,7 +74,12 @@ def latest(request, category=None):
     """
 
     if request.method == "GET":
-        subquery_timestamp = Favorites.objects.order_by("-date_added").values(
+        if category is None:
+            subquery_timestamp = Favorites.objects.order_by("-date_added").values(
+            "date_added"
+        )[:1]
+        else:
+            subquery_timestamp = Favorites.objects.filter(category__iexact=category).order_by("-date_added").values(
             "date_added"
         )[:1]
 
