@@ -128,24 +128,7 @@
       "actual_url":"/favorites/latest/",
       "method": "GET",
       "responses": {
-        "200": [
-          {
-            "id": 1,
-            "name": "Breaking Bad",
-            "rank": 1,
-            "comments": "I wish I watched this show at it's peak to get in on the hype.",
-            "link": "https://www.imdb.com/title/tt0903747/",
-            "added_by_suggestion": false
-          },
-          {
-            "id": 2,
-            "name": "The Office",
-            "rank": 3,
-            "comments": "I've rewatched this whole show probably too many times, never gets old.",
-            "link": "https://www.imdb.com/title/tt0386676/",
-            "added_by_suggestion": false
-          }
-        ],
+        "200": {"Music":[{"id":7,"name":"Sullivan King","rank":1,"comments":"The perfect mix of metal and EDM music in my opinion.","link":"https://open.spotify.com/artist/1CXuuw8HJhyN80HlNzvL1e?si=ofNgfkUVTK2TKWE-UFdS4A","added_by_suggestion":false},{"id":8,"name":"The Score","rank":2,"comments":null,"link":null,"added_by_suggestion":false},{"id":12,"name":"Electric Callboy","rank":2,"comments":"Metal and EDM mix","link":"https://open.spotify.com/artist/1WNoKxsp715jez1Td4vthc?si=jNFVc4HAS_GaufSFPrquAA","added_by_suggestion":false}],"Video Games":[{"id":9,"name":"Hades","rank":1,"comments":"Rougelite game that has a really fun game loop with permanent upgrades and a fun family based story. All set on the backdrop of Greek mythology Gods.","link":"https://www.ign.com/games/hades","added_by_suggestion":false}],"Series":[{"id":10,"name":"Parks and Recreation","rank":4,"comments":null,"link":null,"added_by_suggestion":false}],"Movie":[{"id":11,"name":"Butterfly Effect","rank":1,"comments":"Not a very happy ending, very unique that way I think.","link":null,"added_by_suggestion":true}]},
         "400": {}
       }
     },
@@ -153,7 +136,7 @@
       "actual_url":"/favorites/latest/series",
       "method": "GET",
       "responses": {
-        "200": {},
+        "200": [{"id":10,"name":"Parks and Recreation","rank":4,"comments":null,"link":null,"added_by_suggestion":false}],
         "400": {}
       }
     },
@@ -161,29 +144,15 @@
       "actual_url": "/favorites/random/",
       "method": "GET",
       "responses": {
-        "200": {
-          "id": 2,
-          "name": "The Office",
-          "rank": 3,
-          "comments": "I've rewatched this whole show probably too many times, never gets old.",
-          "link": "https://www.imdb.com/title/tt0386676/",
-          "added_by_suggestion": false
-        },
+        "200": {"id":11,"name":"Butterfly Effect","rank":1,"comments":"Not a very happy ending, very unique that way I think.","link":null,"added_by_suggestion":true},
         "400": {}
       }
     },
     "-favorites-random-series":{
-      "url": "/favorites/random/series",
+      "actual_url": "/favorites/random/series",
       "method": "GET",
       "responses": {
-        "200": {
-          "id": 6,
-          "name": "Better Call Saul",
-          "rank": 2,
-          "comments": "Started this to get more Breaking Bad but it's different in a really good way.",
-          "link": "https://www.imdb.com/title/tt3032476/",
-          "added_by_suggestion": false
-        },
+        "200": {"id":1,"name":"Breaking Bad","rank":1,"comments":"I wish I watched this show at it's peak to get in on the hype.","link":"https://www.imdb.com/title/tt0903747/","added_by_suggestion":false},
         "400": {}
       }
     },
@@ -191,7 +160,7 @@
       "actual_url": "/favorites/search/fi",
       "method": "GET",
       "responses": {
-        "200": {},
+        "200": {"Series":[{"id":2,"name":"The Office","rank":3,"comments":"I've rewatched this whole show probably too many times, never gets old.","link":"https://www.imdb.com/title/tt0386676/","added_by_suggestion":false}],"Anime":[{"id":4,"name":"Fire Force","rank":3,"comments":"Great fighting scenes and has a good amount of non-main plot funny episodes","link":"https://www.imdb.com/title/tt9307686/","added_by_suggestion":false}]},
         "400": {}
       }
     },
@@ -199,7 +168,7 @@
       "actual_url": "/favorites/search/fi/series",
       "method": "GET",
       "responses": {
-        "200": {},
+        "200": [{"id":2,"name":"The Office","rank":3,"comments":"I've rewatched this whole show probably too many times, never gets old.","link":"https://www.imdb.com/title/tt0386676/","added_by_suggestion":false}],
         "400": {}
       }
     },
@@ -207,7 +176,7 @@
       "actual_url": "/favorites/top/3",
       "method": "GET",
       "responses": {
-        "200": {},
+        "200": {"Series":[{"id":1,"name":"Breaking Bad","rank":1,"comments":"I wish I watched this show at it's peak to get in on the hype.","link":"https://www.imdb.com/title/tt0903747/","added_by_suggestion":false},{"id":6,"name":"Better Call Saul","rank":2,"comments":"Started this to get more Breaking Bad but it's different in a really good way.","link":"https://www.imdb.com/title/tt3032476/","added_by_suggestion":false},{"id":2,"name":"The Office","rank":3,"comments":"I've rewatched this whole show probably too many times, never gets old.","link":"https://www.imdb.com/title/tt0386676/","added_by_suggestion":false}],"Anime":[{"id":3,"name":"Attack on Titan","rank":1,"comments":"This show is very smart and plays with information asymmetry very well.","link":"https://www.imdb.com/title/tt2560140/","added_by_suggestion":true},{"id":5,"name":"RWBY","rank":2,"comments":"Amazing fight scenes! The show kinda falls off toward the later seasons but I'll still watch any new seasons that are put out.","link":"https://www.imdb.com/title/tt3066242/","added_by_suggestion":true},{"id":4,"name":"Fire Force","rank":3,"comments":"Great fighting scenes and has a good amount of non-main plot funny episodes","link":"https://www.imdb.com/title/tt9307686/","added_by_suggestion":false}],"Music":[{"id":7,"name":"Sullivan King","rank":1,"comments":"The perfect mix of metal and EDM music in my opinion.","link":"https://open.spotify.com/artist/1CXuuw8HJhyN80HlNzvL1e?si=ofNgfkUVTK2TKWE-UFdS4A","added_by_suggestion":false},{"id":8,"name":"The Score","rank":2,"comments":null,"link":null,"added_by_suggestion":false},{"id":12,"name":"Electric Callboy","rank":2,"comments":"Metal and EDM mix","link":"https://open.spotify.com/artist/1WNoKxsp715jez1Td4vthc?si=jNFVc4HAS_GaufSFPrquAA","added_by_suggestion":false}],"Video Games":[{"id":9,"name":"Hades","rank":1,"comments":"Rougelite game that has a really fun game loop with permanent upgrades and a fun family based story. All set on the backdrop of Greek mythology Gods.","link":"https://www.ign.com/games/hades","added_by_suggestion":false}],"Movie":[{"id":11,"name":"Butterfly Effect","rank":1,"comments":"Not a very happy ending, very unique that way I think.","link":null,"added_by_suggestion":true}]},
         "400": {}
       }
     },
@@ -215,7 +184,7 @@
       "actual_url": "/favorites/top/3/series",
       "method": "GET",
       "responses": {
-        "200": {},
+        "200": [{"id":1,"name":"Breaking Bad","rank":1,"comments":"I wish I watched this show at it's peak to get in on the hype.","link":"https://www.imdb.com/title/tt0903747/","added_by_suggestion":false},{"id":6,"name":"Better Call Saul","rank":2,"comments":"Started this to get more Breaking Bad but it's different in a really good way.","link":"https://www.imdb.com/title/tt3032476/","added_by_suggestion":false},{"id":2,"name":"The Office","rank":3,"comments":"I've rewatched this whole show probably too many times, never gets old.","link":"https://www.imdb.com/title/tt0386676/","added_by_suggestion":false}],
         "400": {}
       }
     },
@@ -223,7 +192,7 @@
       "actual_url":"/recommendations/latest/",
       "method": "GET",
       "responses": {
-        "200": {},
+        "200": {"Artist":[{"id":4,"name":"asdf","comments":null,"link":"https://www.imdb.com/title/tt0289879/","suggester":null}]},
         "400": {}
       }
     },

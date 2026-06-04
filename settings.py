@@ -28,6 +28,7 @@ ALLOWED_HOSTS = ["api.calebrichardson.dev", "docs.calebrichardson.dev", "127.0.0
 # Application definition
 
 INSTALLED_APPS = [
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -42,16 +43,28 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     'django_hosts.middleware.HostsRequestMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'django_hosts.middleware.HostsResponseMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "https://calebrichardson.dev",
+    "https://docs.calebrichardson.dev",
+    "http://docs.localhost:8000",
+    "http://localhost:8000",
+]
+
+CORS_ALLOW_METHODS = (
+    "GET",
+)
 
 ROOT_URLCONF = "api_urls"
 ROOT_HOSTCONF = "hosts"
