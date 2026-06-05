@@ -3,6 +3,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
+    path("categories/", views.categories),
     path("top/<int:amount>/", views.top),
     path("top/<int:amount>/<str:category>/", views.top),
     path("latest/", views.latest),

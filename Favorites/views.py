@@ -35,6 +35,19 @@ def _group_by_category(query_values: list):
     return all_matches_dict
 
 @api_view(["GET"])
+def categories(request):
+    """Shows all categories that other GET requests can be filtered by
+    """
+    
+    if request.method == "GET":
+        all_items = Favorites.objects.order_by("-category").values("category")
+        print(all_items)
+        grouped = _group_by_category(all_items)
+        jsonified_groups = grouped.keys()
+
+        return Response(jsonified_groups)
+
+@api_view(["GET"])
 def top(request, amount, category=None):
     """
     Gets top X rated items in *every* category

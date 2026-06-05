@@ -1,5 +1,12 @@
 {
   "url_info":{
+    "/favorites/categories/": {
+      "description": "Gets a list of all categories available to use as filters",
+      "examples": ["-favorites-categories-"],
+      "url_parameters": [],
+      "data_parameters": [],
+      "methods":["GET"]
+    },
     "/favorites/latest/{category}": {
       "description": "Gets the last favorites added, can get multiple if they were added on the same day",
       "examples": ["-favorites-latest-series", "-favorites-latest-"],
@@ -124,6 +131,10 @@
     }
   },
   "examples":{
+    "-favorites-categories-":{
+      "actual_url":"/favorites/categories/",
+      "method": "GET"
+    },
     "-favorites-latest-":{
       "actual_url":"/favorites/latest/",
       "method": "GET"
